@@ -12,14 +12,15 @@ exports.addExpense = (req, res, next) => {
   })
     .then((result) => {
       console.log("Created Product");
-       return res.send(JSON.stringify({result}));
+      //  return res.send(JSON.stringify({result}));
+      return res.json({result})
     })
     .catch((err) => console.log(err));
 };
 exports.getAllExpenses = (req, res, next) => {
   Expense.findAll()
     .then((expenses) => {
-    return res.send(JSON.stringify({expenses}));
+    return res.json({expenses})
       })
     .catch((err) => console.log(err));
 };
@@ -31,7 +32,7 @@ exports.deleteExpense = (req, res, next) => {
       return expense.destroy();
     }).then(result=>{
       console.log("Deleted")
-      return res.send(JSON.stringify({result}));
+      return res.json({result})
     })
     .catch((err) => console.log(err));
 };
@@ -39,7 +40,7 @@ exports.getEditExpense = (req, res, next) => {
   const id = req.params.id;
   Expense.findByPk(id)
   .then(expense=>{
-    return res.send(JSON.stringify({expense}));
+    return res.json({expense})
   }).catch(err=>console.log(err));
 
 };
@@ -57,7 +58,7 @@ exports.updateExpense = (req, res, next) => {
   })
   .then(result=>{
     console.log("Updated");
-    return res.send(JSON.stringify({result}));
+    return res.json({result})
     
   })
   .catch(err=>console.log(err));
