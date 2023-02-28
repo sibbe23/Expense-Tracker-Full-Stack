@@ -10,8 +10,8 @@ btn.addEventListener("click", (e) => {
   const obj = { amount: amount.value, description: desc.value,category: cat.value, };
  if(!desc.title){
     axios.post("http://localhost:3000/expense", obj)
-    .then((data) => {
-      const expense = data.data.result;
+    .then((res) => {
+      const expense = res.data.result;
       const li = document.createElement("li");li.className = "li";
       li.appendChild( document.createTextNode( expense.amount + " " + expense.description + " " + expense.category ));
       const del = document.createElement("button");const edit = document.createElement("button");
@@ -22,8 +22,8 @@ btn.addEventListener("click", (e) => {
     .catch((err) => console.log(err));
  }else{
     axios.put("http://localhost:3000/"+desc.title,obj)
-    .then((data) => {
-      const expense = data.data.result;
+    .then((res) => {
+      const expense = res.data.result;
         const li = document.createElement("li");li.className = "li";
         li.appendChild( document.createTextNode(expense.amount + " " +expense.description + " " + expense.category));
         const del = document.createElement("button");const edit = document.createElement("button");
@@ -37,8 +37,8 @@ btn.addEventListener("click", (e) => {
 
 //fetch expense
 axios.get("http://localhost:3000")
-  .then((data) => {
-    const expenses = data.data.expenses;
+  .then((res) => {
+    const expenses = res.data.expenses;
     console.log("");
     for (let i = 0; i < expenses.length; i++) {
       const li = document.createElement("li");li.className = "li";
@@ -65,8 +65,8 @@ function editEvent(e) {
   if (e.target.classList.contains("edit")) {
     axios
       .get("http://localhost:3000/" + e.target.parentElement.id)
-      .then((data) => {
-        const expense =data.data.expense;
+      .then((res) => {
+        const expense =res.data.expense;
         ul.removeChild(e.target.parentElement);
         amount.value = expense.amount;
         desc.value = expense.description;
